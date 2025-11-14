@@ -18,11 +18,11 @@ This will guide you through installing Zig (if needed) and building the project.
 
 ## Requirements
 
-- Zig 0.13.0 or later ([download here](https://ziglang.org/download/))
+- Zig 0.15.2 or later ([download here](https://ziglang.org/download/))
 
 ## Installation
 
-1. Install Zig 0.13.0 or later
+1. Install Zig 0.15.2 or later
 2. Clone the repository:
    ```bash
    git clone https://github.com/dirmacs/lcz.git

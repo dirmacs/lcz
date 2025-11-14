@@ -2,7 +2,7 @@
 
 ## Project: lcz - Zig-based, llama.cpp powered, agentic CLI application
 
-This document summarizes the complete scaffolding of the lcz project using Zig 0.13.0+.
+This document summarizes the complete scaffolding of the lcz project using Zig 0.15.2+.
 
 ## Scaffolding Completed
 
@@ -163,7 +163,7 @@ All modules include comprehensive unit tests:
 
 ## Code Quality
 
-- ✅ All code follows Zig 0.13.0+ conventions
+- ✅ All code follows Zig 0.15.2+ conventions
 - ✅ Proper error handling with try/!void patterns
 - ✅ Memory management with allocators
 - ✅ Comprehensive documentation strings
@@ -197,7 +197,7 @@ The project is fully scaffolded and ready for:
 
 ## Next Steps (for developers)
 
-1. Install Zig 0.13.0 or later
+1. Install Zig 0.15.2 or later
 2. Run `./setup.sh` for guided setup
 3. Run `./validate.sh` to verify setup
 4. Start developing features

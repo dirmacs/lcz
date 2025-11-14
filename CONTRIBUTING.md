@@ -4,7 +4,7 @@ Thank you for your interest in contributing to lcz!
 
 ## Development Setup
 
-1. Install Zig 0.13.0 or later from [ziglang.org](https://ziglang.org/download/)
+1. Install Zig 0.15.2 or later from [ziglang.org](https://ziglang.org/download/)
 2. Clone the repository:
    ```bash
    git clone https://github.com/dirmacs/lcz.git

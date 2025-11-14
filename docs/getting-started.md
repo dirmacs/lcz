@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
-- Zig 0.13.0 or later ([download here](https://ziglang.org/download/))
+- Zig 0.15.2 or later ([download here](https://ziglang.org/download/))
 - Git
 
 ### Clone the Repository

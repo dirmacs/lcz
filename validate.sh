@@ -14,8 +14,8 @@ if command -v zig &> /dev/null; then
     ZIG_VERSION=$(zig version)
     echo "   ✓ Zig is installed: $ZIG_VERSION"
     
-    # Check minimum version (0.13.0)
-    REQUIRED_VERSION="0.13.0"
+    # Check minimum version (0.15.2)
+    REQUIRED_VERSION="0.15.2"
     if [[ "$ZIG_VERSION" < "$REQUIRED_VERSION" ]]; then
         echo "   ⚠ Warning: Zig $REQUIRED_VERSION or later is recommended"
         echo "   Current version: $ZIG_VERSION"
