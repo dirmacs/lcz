@@ -1,3 +1,22 @@
+# Zig build artifacts
 .zig-cache/
 zig-out/
 *.o
+*.a
+*.so
+*.dll
+*.dylib
+
+# Editor/IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+
