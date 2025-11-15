@@ -91,7 +91,7 @@ pub fn llmCall(allocator: std.mem.Allocator, system_prompt: []const u8, user_pro
         Message{ .role = "user", .content = user_prompt },
     };
     const request_payload = RequestPayload{
-        .model = "Qwen_Qwen3-4B-Instruct-2507-IQ4_XS",
+        .model = "granite-4_0-h-350m-IQ4_XS",
         .messages = &messages,
     };
     const payload = try std.json.Stringify.valueAlloc(request_arena_allocator, request_payload, .{});
@@ -101,6 +101,7 @@ pub fn llmCall(allocator: std.mem.Allocator, system_prompt: []const u8, user_pro
     const response = try client.fetch(.{
         .method = .POST,
         .location = .{ .uri = uri },
-
+        .response_writer = &body.writer(allocator),
+        .payload = payload,
     })
 }
