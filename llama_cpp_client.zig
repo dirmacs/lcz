@@ -94,14 +94,54 @@ pub fn llmCall(allocator: std.mem.Allocator, system_prompt: []const u8, user_pro
         .model = "granite-4_0-h-350m-IQ4_XS",
         .messages = &messages,
     };
+
     const payload = try std.json.Stringify.valueAlloc(request_arena_allocator, request_payload, .{});
     std.debug.print("{s}\n", .{"=" ** 50});
     std.debug.print("Payload: {s}\n", .{payload});
 
-    const response = try client.fetch(.{
-        .method = .POST,
-        .location = .{ .uri = uri },
-        .response_writer = &body.writer(allocator),
-        .payload = payload,
-    })
+    var req = try client.request(.POST, uri, .{
+        .extra_headers = &.{
+            .{ .name = "Content-Type", .value = "application/json" },
+        },
+    });
+    defer req.deinit();
+
+    req.transfer_encoding = .{ .content_length = payload.len };
+
+    var body_writer = try req.sendBody(&.{});
+    try body_writer.writer.writeAll(payload);
+    try body_writer.end();
+
+    var response = try req.receiveHead(&.{});
+    const response_buffer = try request_arena_allocator.alloc(u8, 10 * 1024 * 1024);
+    defer request_arena_allocator.free(response_buffer);
+    var response_writer: std.Io.Writer = .fixed(response_buffer);
+    var read_buffer: [4096]u8 = undefined;
+    const body_reader: *std.Io.Reader = response.reader(&read_buffer);
+
+    const n = try body_reader.streamRemaining(&response_writer);
+
+    const response_json = response_buffer[0..n];
+    std.debug.print("{s}\n", .{"=" ** 50});
+    std.debug.print("Response status: {}\n", .{response.head.status});
+
+    if (response.head.status != .ok) {
+        std.debug.print("HTTP Error: {}\n", .{response.head.status});
+        std.debug.print("Response body: {s}\n", .{body.items});
+        std.debug.print("Error connecting to llama-server: {s}\n", .{body.items});
+    }
+
+    const parsed = try std.json.parseFromSlice(
+        LLMResponse,
+        allocator,
+        body.items,
+        .{
+            .allocate = .alloc_always,
+            .parse_numbers = true,
+            .ignore_unknown_fields = true,
+            .duplicate_field_behavior = .use_last,
+        },
+    );
+
+    return parsed;
 }
